@@ -1,7 +1,6 @@
 import { useState } from 'react'
-import Form from './components/Form'
-import Props from './components/Props'
-import WeatherAPI from './components/WeatherAPI'
+import Weather from './components/Weather/Weather'
+import News from './components/News/News'
 import { QueryClient, QueryClientProvider } from 'react-query'
 
 // Create a client
@@ -12,7 +11,7 @@ const App = ()=>{
   
   return (
     <QueryClientProvider client={queryClient}>
-      <WeatherAPI />
+      <Weather />
     </QueryClientProvider>
   );
   

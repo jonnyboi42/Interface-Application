@@ -9,6 +9,9 @@ const CreateAccount = () => {
   const handleCreateAccount = (e)=>{
     e.preventDefault();
 
+    localStorage.setItem('username', username);
+    localStorage.setItem('password',password);
+
     console.log('Created Username', username);
     console.log('Created Password', password);
 

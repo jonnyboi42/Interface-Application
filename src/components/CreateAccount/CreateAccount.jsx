@@ -1,7 +1,10 @@
 import React from 'react'
 import { useState, useContext} from 'react';
 import { AccountContext } from '../AccountContext/AccountContext';
+import { useNavigate } from 'react-router-dom';
 const CreateAccount = () => {
+
+  const navigate = useNavigate();
 
   const {password, setPassword} = useContext(AccountContext);
   const {username, setUsername} = useContext(AccountContext);
@@ -14,7 +17,15 @@ const CreateAccount = () => {
 
     console.log('Created Username', username);
     console.log('Created Password', password);
+    console.log("Account has been Created, username and password updated")
 
+    navigate('/signin');
+
+  }
+
+  const handleExistingAccount = (e)=>{
+    e.preventDefault();
+    navigate('/signin');
   }
 
   return (
@@ -30,6 +41,10 @@ const CreateAccount = () => {
         <button>Submit</button>
 
        </form>
+       <div className="existing-account">
+        <p>Already Have an Account?</p>
+        <a href="#" onClick={handleExistingAccount}>Sign-In</a>
+       </div>
     </div>
   )
 }

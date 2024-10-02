@@ -1,31 +1,33 @@
-//This will Hold the User Session Logic
-//Example, Once a user is signed in, the session becomes valid
-
-import React, {useState, createContext, useContext} from "react";
+import React, { useState, useEffect, createContext } from 'react';
 
 export const AuthContext = createContext();
 
-export const AuthorizationProvider = ({children})=>{
-    const [isAuthenticated, setIsAuthenticated] = useState('false');
+export const AuthorizationProvider = ({ children }) => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-    const signIn=()=>{
-        setIsAuthenticated(true);
+  // Sign in function
+  const signIn = () => {
+    setIsAuthenticated(true);
+    localStorage.setItem('isAuthenticated', 'true'); // Store authentication state in localStorage
+  };
+
+  // Sign out function
+  const signOut = () => {
+    setIsAuthenticated(false);
+    localStorage.removeItem('isAuthenticated'); // Clear authentication state from localStorage
+  };
+
+  // Check if the user is authenticated when the app loads
+  useEffect(() => {
+    const storedAuth = localStorage.getItem('isAuthenticated');
+    if (storedAuth === 'true') {
+      setIsAuthenticated(true);
     }
+  }, []);
 
-    const signOut = ()=>{
-        setIsAuthenticated(false);
-    }
-
-    return(
-        <AuthContext.Provider value={{isAuthenticated,signIn,signOut}}>
-            {children}
-    
-        </AuthContext.Provider>
-    )
-    
-}
-
-
-
-
-
+  return (
+    <AuthContext.Provider value={{ isAuthenticated, signIn, signOut }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};

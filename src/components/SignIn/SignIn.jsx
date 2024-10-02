@@ -1,6 +1,7 @@
 import React from 'react'
 import { useContext } from 'react';
 import { useState } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../AuthorizationContext/AuthorizationContext';
 
@@ -16,13 +17,21 @@ const SignIn = () => {
 
         if(localStorage.getItem('username') === enteredUsername && localStorage.getItem('password') === enteredPassword){
             console.log('Successful Credentials Entered');
-            signIn();
-            console.log('Is Authenticated', isAuthenticated);
-            navigate('/');  //Navigate to the Home Page Upon Successful Log-in
+            signIn();   //Sets isAuthenticated to true comes from AuthorizationContext
+            
         }else{
             console.log('Invalid Username Or Password');
         }
     }
+
+
+    // Monitor changes in isAuthenticated and navigate after authentication
+    useEffect(() => {
+        if (isAuthenticated) {
+            console.log('Is Authenticated:', isAuthenticated);
+            navigate('/');  // Navigate to Home Page upon successful log-in
+        }
+    }, [isAuthenticated, navigate]); // Only run when isAuthenticated changes
 
   return (
     

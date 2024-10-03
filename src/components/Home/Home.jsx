@@ -27,9 +27,12 @@ const Home = () => {
   // Render the home page if authenticated
   return (
     <div className="home-container">
-      <Header />
-      {/* <Weather /> */}
-      {/* <News /> */}
+      <div className="home-container-content">
+        <Header />
+        {/* <Weather /> */}
+        {/* <News /> */}
+      </div>
+
     </div>
   );
 };

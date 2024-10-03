@@ -15,7 +15,6 @@ const Header = () => {
     
   }
 
-  
     // Monitor changes in isAuthenticated and navigate after authentication
     useEffect(() => {
       if (!isAuthenticated) {
@@ -25,9 +24,9 @@ const Header = () => {
   }, [isAuthenticated, navigate]); // Only run when isAuthenticated changes
 
   return (
-    <div className="header">
-    <p></p>
-    <a  href="#" onClick= {handleSignOut } >Sign-Out</a>
+    <div className="header-container">
+      <p>User: {localStorage.getItem('username')}</p>
+      <a  href="#" onClick= {handleSignOut } >Sign-Out</a>
         
     </div>
   )

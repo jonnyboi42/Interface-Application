@@ -29,7 +29,7 @@ const Home = () => {
     <div className="home-container">
       <div className="home-container-content">
         <Header />
-        {/* <Weather /> */}
+        <Weather />
         {/* <News /> */}
       </div>
 

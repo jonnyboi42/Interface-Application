@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Header from '../Header/Header';
 import Weather from '../Weather/Weather';
+import News from '../News/News';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../AuthorizationContext/AuthorizationContext';
 
@@ -27,10 +28,14 @@ const Home = () => {
   // Render the home page if authenticated
   return (
     <div className="home-container">
+
       <div className="home-container-content">
         <Header />
-        <Weather />
-        {/* <News /> */}
+        <div className="home-module-content">
+          <Weather />
+          <News />
+        </div>
+ 
       </div>
 
     </div>

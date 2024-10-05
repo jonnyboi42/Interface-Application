@@ -4,6 +4,7 @@ import './components/SignIn/signin.css'
 import './components/Home/home.css'
 import './components/Header/header.css'
 import './components/Weather/weather.css'
+import './components/News/news.css'
 import App from './App.jsx'
 
 

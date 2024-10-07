@@ -5,6 +5,8 @@ import './components/Home/home.css'
 import './components/Header/header.css'
 import './components/Weather/weather.css'
 import './components/News/news.css'
+import './components/DateAndTime/dateandtime.css'
+import './components/Reminders/reminders.css'
 import App from './App.jsx'
 
 

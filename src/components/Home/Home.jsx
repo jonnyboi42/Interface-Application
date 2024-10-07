@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from 'react';
 import Header from '../Header/Header';
 import Weather from '../Weather/Weather';
 import News from '../News/News';
+import DateAndTime from '../DateAndTime/DateAndTime';
+import Reminders from '../Reminders/Reminders';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../AuthorizationContext/AuthorizationContext';
 
@@ -32,8 +34,10 @@ const Home = () => {
       <div className="home-container-content">
         <Header />
         <div className="home-module-content">
+          <DateAndTime/>
+          <Reminders/>
           <Weather />
-          <News />
+          
         </div>
  
       </div>

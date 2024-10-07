@@ -37,6 +37,7 @@ const Home = () => {
           <DateAndTime/>
           <Reminders/>
           <Weather />
+          <News/>
           
         </div>
  
@@ -47,3 +48,32 @@ const Home = () => {
 };
 
 export default Home;
+
+
+
+// This will be the layout for the home page
+// <div class="parent">
+// <div class="div1"> </div>
+// <div class="div2"> </div>
+// <div class="div3"> </div>
+// <div class="div4"> </div>
+// <div class="div5"> </div>
+// <div class="div6"> </div>
+// </div>
+
+// This will be the css for the homepage
+// .parent {
+//   display: grid;
+//   grid-template-columns: repeat(3, 1fr);
+//   grid-template-rows: .4fr repeat(3, 1fr);
+//   grid-column-gap: 0px;
+//   grid-row-gap: 0px;
+//   height: 100vh;
+// }
+  
+// .div1 { grid-area: 1 / 1 / 2 / 4; background-color: blue; }
+// .div2 { grid-area: 2 / 1 / 3 / 2; background-color: black;}
+// .div3 { grid-area: 3 / 1 / 4 / 2; background-color: purple;}
+// .div4 { grid-area: 4 / 1 / 5 / 2; background-color: yellow;}
+// .div5 { grid-area: 2 / 2 / 5 / 3; background-color: green;}
+// .div6 { grid-area: 2 / 3 / 5 / 4; background-color: brown;}

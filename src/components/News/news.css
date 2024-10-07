@@ -11,3 +11,8 @@
     /* Optional text styling for contrast */
     color: white;
 }
+
+.article-image{
+    width: 100%;
+    border-radius: 5px;
+}

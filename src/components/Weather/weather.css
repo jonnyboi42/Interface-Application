@@ -10,44 +10,10 @@
     
     /* Optional text styling for contrast */
     color: white;
+    font-family:'Roboto', sans-serif; 
 }
 
-.weather-content > h1{
-    /* text-decoration: underline; */
-    width: 100%;
-    
-}
-
-.weather-content > p:nth-of-type(1){
-    font-size: 1.5rem;
-    color: black;
-    
-    
-}
-
-.weather-location{
+.forecast-day-low-and-high{
     display: flex;
-    align-items: center;
-    gap: 1em;
-
-}
-
-.weather-location > p:nth-of-type(1){
-    font-size: 1.5rem;
-    color: rgb(236, 230, 230);
-}
-
-.temperature-description{
-    display: flex;
-    gap: 1em
-}
-
-.weather-description{
-    display: flex;
-    gap: 1em;
-}
-
-.wind-description{
-    display: flex;
-    gap: 1em;
+    gap: 2em;
 }

@@ -52,24 +52,27 @@ const Weather = () => {
     // Function to format date from the response
     const formatDate = (timestamp) => {
       const date = new Date(timestamp * 1000); // Ensure date is properly defined here
-      return date.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+      return date.toLocaleDateString('en-US', { weekday: 'long'});
     };
 
     return (
       <div className="weather-container-content">
-        <h2>5-Day Weather Forecast</h2>
+        <h2>Weather</h2>
         <div className="forecast-container">
-          {getDailyForecast().map((day, index) => (
-            <div key={index} className="forecast-day">
-              <h3>{formatDate(day.dt)}</h3>
-              <p>Temp: {Math.round(day.main.temp - 273.15)}°C</p> {/* Convert from Kelvin to Celsius */}
-              <p>Weather: {day.weather[0].main} - {day.weather[0].description}</p>
-              {/* <img
-                src={`http://openweathermap.org/img/wn/${day.weather[0].icon}.png`}
-                alt={day.weather[0].description}
-              /> */}
-            </div>
-          ))}
+          <div className="forecast-items">
+            {getDailyForecast().map((day, index) => (
+              <div key={index} className="forecast-day">
+                <h3>{formatDate(day.dt)}</h3>
+                <div className="forecast-day-low-and-high">
+                  <p>Low: {Math.round((day.main.temp_min - 273.15) * 9/5 + 32)}°F</p> {/* Convert from Kelvin to Fahrenheit */}
+                  <p>Hi: {Math.round((day.main.temp_max - 273.15) * 9/5 + 32)}°F</p> {/* Convert from Kelvin to Fahrenheit */}
+                </div>  
+                <p> {day.weather[0].description}</p>
+              </div>
+            ))}
+
+          </div>
+          
         </div>
       </div>
     );

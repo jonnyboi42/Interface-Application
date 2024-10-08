@@ -30,7 +30,7 @@ const News = () => {
     );
 
     // Slice the first 3 valid articles
-    const articlesToDisplay = validArticles.slice(0, 3);
+    const articlesToDisplay = validArticles.slice(0, 1);
 
     return articlesToDisplay.length > 0 ? (
       articlesToDisplay.map((article, index) => (
@@ -54,6 +54,7 @@ const News = () => {
       <div className="news-content">
         <h1>News</h1>
         {getArticles()}
+        <button className='read-more'>Read More</button>
       </div>
     </div>
   );

@@ -1,0 +1,54 @@
+.reminders-container{
+    border: 2px solid rgba(255, 255, 255, 0.2); /* Semi-transparent border */
+    border-radius: 5px;
+    padding: 1.5em; /* Optional padding for inner content */
+    
+    background: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
+    backdrop-filter: blur(10px); /* Background blur for glass effect */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+    
+    /* Optional text styling for contrast */
+    color: white;
+    font-family:'Roboto', sans-serif; 
+    width: 50%;
+
+    
+}
+
+.reminder-title{
+    font-size: 1.5rem;
+    display: flex;
+    gap: .4em;
+}
+
+.reminder-item-reminder{
+    display: flex;
+    gap: .3em;
+}
+
+.reminders-items{
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    margin-top: .3em;
+}
+
+.reminder-item-due-date > p:nth-of-type(1){
+   padding: 0;
+   margin: 0;
+   color: rgb(199, 198, 198);
+}
+
+.add-reminder{
+    background: none;
+    border: 1px solid white;
+    border-radius: 5px;
+    width: 40%;
+    padding: .2em;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}

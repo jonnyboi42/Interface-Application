@@ -35,8 +35,9 @@ const News = () => {
     return articlesToDisplay.length > 0 ? (
       articlesToDisplay.map((article, index) => (
         <div key={index} className='article'>
-          <p>{article.title}</p>
+          
           <img className='article-image' src={article.urlToImage} alt={article.title} />
+          <p>{article.title}</p>
         </div>
       ))
     ) : (
@@ -52,9 +53,9 @@ const News = () => {
   return (
     <div className="news-container-content">
       <div className="news-content">
-        <h1>News</h1>
+        {/* <h1>News</h1> */}
         {getArticles()}
-        <button className='read-more'>Read More</button>
+        {/* <button className='read-more'>Read More</button> */}
       </div>
     </div>
   );

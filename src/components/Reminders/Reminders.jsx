@@ -1,10 +1,15 @@
 import React from 'react'
 import CalendarIcon from '../../icons/calendar.svg'
+import Reminder from '../../icons/reminder.svg'
 const Reminders = () => {
   return (
     <div className="reminders-container">
         <div className="reminders-content">
-            <div className="reminder-title">Reminders</div>
+            <div className="reminder-title">
+                <p>Reminders</p>
+                {/* <img src={Reminder} alt="" /> */}
+            </div>
+            
 
             <div className="reminders-items">
                 <div className="reminder-item">
@@ -17,6 +22,9 @@ const Reminders = () => {
                     </div>
 
                 </div>
+
+                <button className='add-reminder'>Add</button>
+
             </div>
         </div>
     </div>

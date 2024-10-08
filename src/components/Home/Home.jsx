@@ -30,21 +30,28 @@ const Home = () => {
   // Render the home page if authenticated
   return (
     <div class="home-container">
-      <div class="grid-header">
-        <Header/>
+      <Header/>
+      <div className="home-container-content">
+        
+          
+      
+        <div className="home-container-modules-content">
+          <div className="home-container-modules-content-col-1">
+            
+            <DateAndTime/> 
+            <Reminders/> 
+            <Weather/>
+            
+          </div>  
+
+          <div className="home-container-modules-content-col-2">
+            <News/>
+          </div>
+
+        </div>
+        
       </div>
-      <div class="grid-date-time"> 
-        <DateAndTime/>
-      </div>
-      <div class="grid-reminders"> 
-        <Reminders/>
-      </div>
-      <div class="grid-weather"> 
-        <Weather/>
-      </div>
-      <div class="grid-news">
-        <News/>
-      </div>
+      
     </div>
   );
 };

@@ -1,9 +1,15 @@
+.header-container{
+    height: 15%;
+}
+
 .header-container-content{
     display: flex;
-    width: 100%;
+   
     justify-content: space-between;
     align-items: center;
     text-decoration: none;
+    width: 100%;
+    
 }
 
 .header-user-content{

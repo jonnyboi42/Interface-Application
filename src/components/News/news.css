@@ -11,7 +11,7 @@
     display: flex;
     /* justify-content: center;
     align-items: center;  */
-    width: 50%;
+    width: 70%;
 }
 
 .news-content {
@@ -24,6 +24,7 @@
 .news-content >p:nth-of-type(1){
     margin: 0;
     padding: 0;
+    
 }
 .article {
     display: flex;
@@ -31,10 +32,16 @@
     align-items: center;  /* Ensure image and text in the article are centered */
 }
 
+
 .article-image {
     width: 85%;
     border-radius: 5px;
     margin: 0 auto;  /* This ensures the image is centered */
+}
+
+.article-text{
+    margin-top: .8em;
+    
 }
 
 .read-more{

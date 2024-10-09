@@ -4,6 +4,8 @@ import { useQuery } from 'react-query';
 import weatherConfig from '../../config/weatherConfig';
 import getWeatherIcon from './WeatherIconLogic';
 import WindIcon from './icons/wind.svg';
+import SunIcon from './icons/sun.svg'
+import CloudyIcon from './icons/cloudy.svg'
 import Temperature from './icons/temperature.svg';
 import axios from 'axios';
 
@@ -61,21 +63,27 @@ const Weather = () => {
         <div className="forecast-container">
           <div className="forecast-items">
             {getDailyForecast().map((day, index) => (
-              <div key={index} className="forecast-day">
-                <h3>{formatDate(day.dt)}</h3>
+              <div
+                key={index}
+                className="forecast-day"
+                style={{
+                  opacity: 1 - index * 0.2, // Decrease opacity by 0.2 for each subsequent day
+                }}
+              >
+                {/* Slice the first 3 letters of the formatted date */}
+                <h3>{formatDate(day.dt).slice(0, 3)}</h3>
+                
                 <div className="forecast-day-low-and-high">
-                  <p>Low: {Math.round((day.main.temp_min - 273.15) * 9/5 + 32)}°F</p> {/* Convert from Kelvin to Fahrenheit */}
-                  <p>Hi: {Math.round((day.main.temp_max - 273.15) * 9/5 + 32)}°F</p> {/* Convert from Kelvin to Fahrenheit */}
-                </div>  
-                <p> {day.weather[0].description}</p>
+                  <p>Low: {Math.round((day.main.temp_min - 273.15) * 9 / 5 + 32)}°F</p>
+                  <p>Hi: {Math.round((day.main.temp_max - 273.15) * 9 / 5 + 32)}°F</p>
+                  <img src={CloudyIcon} alt="" />
+                </div>
               </div>
             ))}
-
           </div>
-          
         </div>
       </div>
-    );
+    );  
 
   };
   

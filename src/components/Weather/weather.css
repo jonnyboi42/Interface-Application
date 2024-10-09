@@ -14,7 +14,7 @@
   
 }
 
-.forecast-day{
+/* .forecast-day{
     display: flex;
     gap: 2em;
 }
@@ -22,4 +22,39 @@
 .forecast-day-low-and-high{
     display: flex;
     gap: 2em;
+} */
+
+
+
+
+.forecast-day {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* gap: 5em; */
+}
+
+.forecast-day h3 {
+    width: 100px; /* Set a fixed width for all the day titles */
+    text-align: left;
+    flex-shrink: 0; /* Prevent the day from shrinking */
+}
+
+.forecast-day img {
+    width: 30px; /* Set a fixed size for the icon */
+    height: 30px;
+    flex-grow: 1; /* Allow the icon to take up equal space */
+}
+
+.forecast-day-low-and-high {
+    display: flex;
+    /* flex-direction: column; */
+    text-align: center;
+    flex-grow: 1; /* Allow the low/high container to take equal space */
+}
+
+.forecast-day p {
+    flex-grow: 1; /* Make description text take equal space */
+    text-align: left;
+    margin: 0;
 }

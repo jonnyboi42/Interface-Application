@@ -37,7 +37,7 @@ const News = () => {
         <div key={index} className='article'>
           
           <img className='article-image' src={article.urlToImage} alt={article.title} />
-          <p>{article.title}</p>
+          <p className='article-text'>{article.title}</p>
         </div>
       ))
     ) : (

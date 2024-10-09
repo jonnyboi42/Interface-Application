@@ -4,6 +4,7 @@ import Weather from '../Weather/Weather';
 import News from '../News/News';
 import DateAndTime from '../DateAndTime/DateAndTime';
 import Reminders from '../Reminders/Reminders';
+import Spotify from '../Spotify/Spotify';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../AuthorizationContext/AuthorizationContext';
 
@@ -46,6 +47,8 @@ const Home = () => {
 
           <div className="home-container-modules-content-col-2">
             <News/>
+            <Spotify/>
+
           </div>
 
         </div>

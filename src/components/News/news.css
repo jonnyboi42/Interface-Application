@@ -6,12 +6,10 @@
     background: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
     backdrop-filter: blur(10px); /* Background blur for glass effect */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
-    
     color: white;
     display: flex;
-    /* justify-content: center;
-    align-items: center;  */
     width: 70%;
+    max-width: 70%;
 }
 
 .news-content {
@@ -34,7 +32,10 @@
 
 
 .article-image {
-    width: 85%;
+    
+    max-width: 70%;
+    width: 70%;
+    
     border-radius: 5px;
     margin: 0 auto;  /* This ensures the image is centered */
 }

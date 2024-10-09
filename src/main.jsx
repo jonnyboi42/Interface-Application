@@ -7,6 +7,7 @@ import './components/Weather/weather.css'
 import './components/News/news.css'
 import './components/DateAndTime/dateandtime.css'
 import './components/Reminders/reminders.css'
+import './components/Spotify/spotify.css'
 import App from './App.jsx'
 
 

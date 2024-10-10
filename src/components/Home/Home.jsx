@@ -31,7 +31,7 @@ const Home = () => {
   // Render the home page if authenticated
   return (
     <div class="home-container">
-      <Header/>
+      {/* <Header/> */}
       <div className="home-container-content">
         
           

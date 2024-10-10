@@ -1,4 +1,4 @@
-.weather-container-content {
+.weather-container {
     border: 2px solid rgba(255, 255, 255, 0.2); /* Semi-transparent border */
     border-radius: 5px;
     padding: 1.5em; /* Optional padding for inner content */
@@ -10,51 +10,39 @@
     /* Optional text styling for contrast */
     color: white;
     font-family:'Roboto', sans-serif; 
-    max-width: 100%;
+    width: 40%;
+    max-width: 50%;
+  
   
 }
 
-/* .forecast-day{
-    display: flex;
-    gap: 2em;
+.city-name{
+    text-align: center;
 }
 
-.forecast-day-low-and-high{
+.weather-container-content{
+    width: 100%;
     display: flex;
-    gap: 2em;
-} */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 
-
-
-
-.forecast-day {
+.current-weather-icon-and-temp{
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    /* gap: 5em; */
+    gap: 1em;
 }
 
-.forecast-day h3 {
-    width: 100px; /* Set a fixed width for all the day titles */
-    text-align: left;
-    flex-shrink: 0; /* Prevent the day from shrinking */
-}
-
-.forecast-day img {
-    width: 30px; /* Set a fixed size for the icon */
-    height: 30px;
-    flex-grow: 1; /* Allow the icon to take up equal space */
-}
-
-.forecast-day-low-and-high {
-    display: flex;
-    /* flex-direction: column; */
+.weather-description{
     text-align: center;
-    flex-grow: 1; /* Allow the low/high container to take equal space */
+    color: rgb(194, 192, 192);
 }
 
-.forecast-day p {
-    flex-grow: 1; /* Make description text take equal space */
-    text-align: left;
-    margin: 0;
+.current-weather-wind{
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    
 }
+

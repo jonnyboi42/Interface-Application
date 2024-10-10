@@ -10,31 +10,19 @@ import Temperature from './icons/temperature.svg';
 import axios from 'axios';
 
 
-// const fetchWeather = async () => {
-//     try {
-//         const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${weatherConfig.location}&appid=${weatherConfig.apiKey}`);
-//         const data = response.data;
-//         console.log(data);
-
-//         if(!data || !data.weather || !data.weather[0]){
-//             throw new Error('Incomplete weather data');
-//         }
-
-//         return data;
-
-  
-//     } catch (error) {
-//         console.log('Error Fetching Data', error);
-//         throw new Error('Error Fetching Data'); // Trigger error state
-//     }
-// };
-
 const fetchWeather = async () =>{
 
-  const response = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=austin&appid=${weatherConfig.apiKey}`);
+  const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=austin&appid=${weatherConfig.apiKey}`);
+  console.log(response.data);
   return response.data;
     
 }
+
+
+const kelvinToFahrenheit = (kelvin) => {
+  return (kelvin - 273.15) * (9 / 5) + 32;
+};
+
 
 const Weather = () => {
 
@@ -58,30 +46,35 @@ const Weather = () => {
     };
 
     return (
-      <div className="weather-container-content">
-        <h2>Weather</h2>
-        <div className="forecast-container">
-          <div className="forecast-items">
-            {getDailyForecast().map((day, index) => (
-              <div
-                key={index}
-                className="forecast-day"
-                style={{
-                  opacity: 1 - index * 0.2, // Decrease opacity by 0.2 for each subsequent day
-                }}
-              >
-                {/* Slice the first 3 letters of the formatted date */}
-                <h3>{formatDate(day.dt).slice(0, 3)}</h3>
-                
-                <div className="forecast-day-low-and-high">
-                  <p>Low: {Math.round((day.main.temp_min - 273.15) * 9 / 5 + 32)}°F</p>
-                  <p>Hi: {Math.round((day.main.temp_max - 273.15) * 9 / 5 + 32)}°F</p>
-                  <img src={CloudyIcon} alt="" />
-                </div>
-              </div>
-            ))}
+      <div className="weather-container">
+     
+        
+        <div className="weather-container-content">
+          <div className="city-name">
+            <h2>{data.name}</h2>
           </div>
+
+          <div className="current-weather-icon-and-temp">
+            <div className="current-weather-icon">
+              <img src={CloudyIcon} alt="" />
+            </div>
+            <div className="current-weather-temp">
+            <p>{kelvinToFahrenheit(data.main.temp).toFixed(2)} °F</p>
+            </div>
+          </div>
+          
+   
+          <div className="current-weather-wind">
+            <img src={WindIcon} alt="" />
+            <p>{data.wind.speed}mph</p>
+          </div>
+
+          <div className="weather-description">
+            <p>{data.weather[0].description}</p>
+          </div>
+            
         </div>
+        
       </div>
     );  
 

@@ -20,10 +20,12 @@ const Spotify = () => {
                 <p>Stranger in the Alps</p>
 
             </div>
-            <div className="spotify-album-cover">
-                <img src={AlbumCover} alt="" />
-            </div>
+          
         </div>
+
+        {/* <div className="spotify-album-cover">
+                <img src={AlbumCover} alt="" />
+        </div> */}
         
 
     </div>

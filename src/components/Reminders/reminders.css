@@ -19,6 +19,7 @@
     font-size: 1.5rem;
     display: flex;
     gap: .4em;
+    margin-bottom: .4em;
 }
 
 .reminder-item-reminder{
@@ -45,6 +46,11 @@
     border-radius: 5px;
     width: 40%;
     padding: .2em;
+    margin-top: .9em;
+}
+
+.add-reminder{
+
 }
 
 * {

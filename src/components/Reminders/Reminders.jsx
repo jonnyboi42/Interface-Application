@@ -1,15 +1,42 @@
 import React from 'react'
 import { useState } from 'react';
+import { addDoc, collection } from 'firebase/firestore';
+import { db } from '../../../firebase'
 import CalendarIcon from '../../icons/calendar.svg'
 import Reminder from '../../icons/reminder.svg'
 const Reminders = () => {
     // State to track if we're in "add reminder" mode
     const [isAddingReminder, setIsAddingReminder] = useState(false);
+    const [reminderTitle, setReminderTitle] = useState('');
+    const [dueDate, setDueDate] = useState('');
+    const colRef = collection(db,'reminders');
   
     // Function to toggle between showing reminders and the add-reminder form
     const handleAddReminderClick = () => {
       setIsAddingReminder(true);
     };
+
+  
+
+    //Function to save Reminder to firestore 
+    const handleSaveReminder = async () => {
+      if(reminderTitle && dueDate){
+        try{
+          await addDoc(colRef, {
+            title: reminderTitle,
+            dueDate: dueDate,
+          });
+          console.log('Reminder added!')
+          setIsAddingReminder(false); //Return to reminders view after adding
+          setReminderTitle('');
+          setDueDate('');
+        } catch(error){
+          console.log('Error adding Reminder', error);
+        }
+      } else {
+        console.log('Please fill in both fields');
+      }
+    } 
   
     return (
       <div className="reminders-container">
@@ -39,14 +66,23 @@ const Reminders = () => {
                 </button>
               </div>
             ) : (
-              // When in "add reminder" mode, show the new content (e.g., a form)
               <div>
-                {/* You can replace this with a form if needed */}
-    
-                <input type="text" placeholder="Reminder Title" />
-                <input type="date" />
-                <button>Save Reminder</button>
-              </div>
+                <input
+                    className='reminder-title-input'
+                    type="text"
+                    placeholder="Type Something..."
+                    value={reminderTitle}
+                    onChange={(e) => setReminderTitle(e.target.value)}
+                />
+                <input
+                    className='date-input'
+                    type="date"
+                    value={dueDate}
+                    onChange={(e) => setDueDate(e.target.value)}
+                />
+                <button className='save-reminder-button' onClick={handleSaveReminder}>Save</button>
+                <button className='back-reminder-button' onClick={()=> setIsAddingReminder(false)}>back</button>
+            </div>
             )}
           </div>
         </div>

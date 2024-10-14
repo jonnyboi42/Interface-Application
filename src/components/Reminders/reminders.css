@@ -49,10 +49,60 @@
     margin-top: .9em;
 }
 
-.add-reminder{
+
+
+/* Add Reminders */
+
+.reminder-title-input{
+    background: none;
+    border: 1px solid white;
+    border-radius: 3px;
+    color: white;
+    padding: .4em;
+    font-size: .7rem;
+    width: 80%;
+    max-width: 80%;
+}
+
+
+.reminder-title-input::placeholder {
+    color: rgb(205, 203, 203); /* Set your desired color here */
+    opacity: 1;  /* Make sure the opacity is set to 1 if you want the full color */
+}
+
+.date-input{
+    background: none;
+    background: none;
+    border: 1px solid white;
+    border-radius: 3px;
+    padding: .4em;
+    font-size: .7rem;
+    color: rgb(167, 167, 167);
+    width: 80%;
+    max-width: 80%;
 
 }
 
+.save-reminder-button{
+    background: none;
+    border: 1px solid white;
+    border-radius: 5px;    
+    font-size: .7rem;
+    color: rgb(255, 255, 255);
+    width: 40%;
+    max-width: 40%;
+
+}
+
+.back-reminder-button{
+    background: none;
+    border: 1px solid white;
+    border-radius: 5px;  
+    color: rgb(255, 255, 255);
+    font-size: .7rem;
+    padding-left: .5em;
+    padding-right: .5em;
+}
 * {
     margin: 0;
     padding: 0;

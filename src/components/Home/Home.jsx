@@ -47,7 +47,7 @@ const Home = () => {
 
           <div className="home-container-modules-content-col-2">
             <News/>
-            <Spotify/>
+            {/* <Spotify/> */}
 
           </div>
 

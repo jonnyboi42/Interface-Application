@@ -1,3 +1,9 @@
+.all-reminders-container{
+    display: flex;
+    max-height: 30%;
+    gap: 1em;
+}
+
 .reminders-container{
     border: 2px solid rgba(255, 255, 255, 0.2); /* Semi-transparent border */
     border-radius: 5px;
@@ -10,10 +16,12 @@
     /* Optional text styling for contrast */
     color: white;
     font-family:'Roboto', sans-serif; 
-    width: 50%;
+    width: 40%;
 
     
 }
+
+
 
 .reminder-title{
     font-size: 1.5rem;
@@ -47,6 +55,86 @@
     width: 40%;
     padding: .2em;
     margin-top: .9em;
+}
+
+
+/* Future Reminders */
+.future-reminders-container {
+    border: 2px solid rgba(255, 255, 255, 0.2); /* Semi-transparent border */
+    border-radius: 5px;
+    padding: 1.5em; /* Optional padding for inner content */
+    background: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
+    backdrop-filter: blur(10px); /* Background blur for glass effect */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    width: 60%;
+    
+    /* Scroll settings */
+    overflow-y: scroll;   /* Enable vertical scrolling */
+    overflow-x: hidden;   /* Disable horizontal scrolling */
+
+    /* Optional fixed height for the container */
+    max-height: 400px; /* Adjust based on your layout */
+}
+
+/* Custom scrollbar styling for WebKit browsers */
+.future-reminders-container::-webkit-scrollbar {
+    width: 5px; /* Make scrollbar skinny */
+}
+
+.future-reminders-container::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1); /* Track background */
+}
+
+.future-reminders-container::-webkit-scrollbar-thumb {
+    background-color: rgb(208, 205, 205); /* Scrollbar color */
+    border-radius: 10px; /* Rounded scrollbar for smoother look */
+}
+
+.future-reminders-content{
+    display: flex;
+    flex-direction: column;
+    gap: .6em;
+}
+
+.future-reminder-item{
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 100%;
+
+}
+
+
+.future-reminders-content > p:nth-of-type(1){
+    font-size: 1.5rem;
+    margin-bottom: .3em;
+
+}
+
+.future-reminder-icon-and-title{
+    display: flex;
+}
+
+
+.future-reminder-item-due-date > p:nth-of-type(1){
+   padding: 0;
+   margin: 0;
+   color: rgb(199, 198, 198);
+}
+
+.future-reminder-due-date{
+    color: rgb(199, 196, 196);
+}
+
+.future-remove-button{
+    font-size: .7rem;
+    background: none;
+    border: 1px solid white;
+    color: black;
+    border-radius: 5px;
+    padding: .3em;
 }
 
 

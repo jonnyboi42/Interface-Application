@@ -1,6 +1,7 @@
 .home-container {
-    height: 100vh;
+    min-height: 100vh;
     font-family: "Saira", sans-serif;
+    overflow: auto;
     
     /* background-image: url('https://i.pinimg.com/originals/c3/8a/c8/c38ac8e163d09254f86afa331da35693.jpg'); */
     background-image: url('https://images.pexels.com/photos/933054/pexels-photo-933054.jpeg?cs=srgb&dl=pexels-joyston-judah-331625-933054.jpg&fm=jpg');
@@ -48,6 +49,10 @@
     align-items: flex-end;
     /* background-color: green; */
 }
+
+
+
+
 
 
 

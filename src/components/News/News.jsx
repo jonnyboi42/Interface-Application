@@ -53,11 +53,13 @@ const News = () => {
   return (
     <div className="news-container-content">
       <div className="news-content">
-        <h1>News</h1>
+        {/* <h1>News</h1> */}
         {getArticles()}
         {/* <button className='read-more'>Read More</button> */}
       </div>
+      <button>Read More</button>
     </div>
+    
   );
 };
 

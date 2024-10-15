@@ -19,6 +19,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: .5em;
 
     
 }
@@ -29,9 +30,10 @@
 }
 .reminder-title{
     font-size: 1.5rem;
-    display: flex;
-    gap: .4em;
+    /* display: flex; */
+    /* gap: .4em; */
     margin-bottom: .4em;
+    text-align: center;
 }
 
 .reminder-item-reminder{
@@ -153,8 +155,15 @@
     color: white;
     padding: .4em;
     font-size: .7rem;
-    width: 80%;
-    max-width: 80%;
+
+}
+
+
+
+.add-reminder-buttons{
+    display: flex;
+    width: 100%;
+    gap: .6em
 }
 
 
@@ -165,14 +174,12 @@
 
 .date-input{
     background: none;
-    background: none;
     border: 1px solid white;
     border-radius: 3px;
     padding: .4em;
     font-size: .7rem;
     color: rgb(167, 167, 167);
-    width: 80%;
-    max-width: 80%;
+  
 
 }
 
@@ -195,7 +202,10 @@
     font-size: .7rem;
     padding-left: .5em;
     padding-right: .5em;
+    width: 30%;
 }
+
+
 * {
     margin: 0;
     padding: 0;

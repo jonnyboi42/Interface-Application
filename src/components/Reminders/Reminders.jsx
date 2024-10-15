@@ -8,7 +8,14 @@ const Reminders = () => {
   const [reminderTitle, setReminderTitle] = useState('');
   const [dueDate, setDueDate] = useState('');
   const [remindersList, setRemindersList] = useState([]); // State to store reminders
+  const [todayReminder, setTodayReminder] = useState(null); // State to store today's reminder
   const colRef = collection(db, 'reminders');
+
+  // Get current date in 'YYYY-MM-DD' format
+  const getCurrentDate = () => {
+    const today = new Date();
+    return today.toISOString().split('T')[0]; // Format to match 'YYYY-MM-DD'
+  };
 
   // Fetch reminders when the component mounts
   useEffect(() => {
@@ -19,13 +26,18 @@ const Reminders = () => {
           id: doc.id,
           ...doc.data(),
         }));
-        setRemindersList(remindersData); // Store fetched reminders in state
+        setRemindersList(remindersData);
+
+        // Check for reminders due today
+        const currentDate = getCurrentDate();
+        const todayReminders = remindersData.find(reminder => reminder.dueDate === currentDate);
+        setTodayReminder(todayReminders || null); // Set today's reminder or null if none found
       } catch (error) {
         console.log('Error fetching reminders', error);
       }
     };
 
-    fetchReminders(); // Call the function to fetch reminders
+    fetchReminders();
   }, []);
 
   // Function to toggle between showing reminders and the add-reminder form
@@ -53,6 +65,11 @@ const Reminders = () => {
           ...doc.data(),
         }));
         setRemindersList(updatedReminders);
+
+        // Update today's reminder check
+        const currentDate = getCurrentDate();
+        const todayReminders = updatedReminders.find(reminder => reminder.dueDate === currentDate);
+        setTodayReminder(todayReminders || null);
       } catch (error) {
         console.log('Error adding Reminder', error);
       }
@@ -75,6 +92,11 @@ const Reminders = () => {
         ...doc.data(),
       }));
       setRemindersList(updatedReminders);
+
+      // Update today's reminder check
+      const currentDate = getCurrentDate();
+      const todayReminders = updatedReminders.find(reminder => reminder.dueDate === currentDate);
+      setTodayReminder(todayReminders || null);
     } catch (error) {
       console.log('Error deleting reminder', error);
     }
@@ -85,7 +107,7 @@ const Reminders = () => {
       <div className="reminders-container">
         <div className="reminders-content">
           <div className="reminder-title">
-            <p>Reminders</p>
+          <p>{isAddingReminder ? 'Add Reminder' : 'Due Today'}</p>
           </div>
 
           <div className="reminders-items">
@@ -94,10 +116,18 @@ const Reminders = () => {
                 <div className="reminder-item">
                   <div className="reminder-item-reminder">
                     <img src={CalendarIcon} alt="" />
-                    <p>Wells Fargo</p>
+                    {todayReminder ? (
+                      <p>{todayReminder.title}</p> // Render the reminder if there's one due today
+                    ) : (
+                      <p>Nothing Due</p> // Default message if no reminders due today
+                    )}
                   </div>
                   <div className="reminder-item-due-date">
-                    <p>Jan 27th</p>
+                    {todayReminder ? (
+                      <p>{todayReminder.dueDate}</p> // Render the due date if there's one due today
+                    ) : (
+                      <p></p> // Empty if no reminders due today
+                    )}
                   </div>
                 </div>
 
@@ -107,7 +137,7 @@ const Reminders = () => {
                 </button>
               </div>
             ) : (
-              <div>
+              <div className='reminders-items'>
                 <input
                   className="reminder-title-input"
                   type="text"
@@ -121,12 +151,16 @@ const Reminders = () => {
                   value={dueDate}
                   onChange={(e) => setDueDate(e.target.value)}
                 />
-                <button className="save-reminder-button" onClick={handleSaveReminder}>
-                  Save
-                </button>
-                <button className="back-reminder-button" onClick={() => setIsAddingReminder(false)}>
-                  back
-                </button>
+
+                <div className="add-reminder-buttons">
+                  <button className="save-reminder-button" onClick={handleSaveReminder}>
+                    Save
+                  </button>
+                  <button className="back-reminder-button" onClick={() => setIsAddingReminder(false)}>
+                    back
+                  </button>
+                </div>
+
               </div>
             )}
           </div>

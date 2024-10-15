@@ -24,34 +24,15 @@ const getFormattedDate = () => {
   return formattedDate.replace(day.toString(), day + suffix);
 };
 
-const getFormattedTime = () => {
-  const date = new Date();
-
-  // Get hours, minutes, and seconds
-  let hours = date.getHours();
-  const minutes = date.getMinutes();
-  const ampm = hours >= 12 ? 'PM' : 'AM';
-
-  // Convert to 12-hour format
-  hours = hours % 12 || 12;
-
-  // Format minutes to always have two digits
-  const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
-
-  return `${hours}:${formattedMinutes} ${ampm}`;
-};
 
 const DateAndTime = () => {
   const formattedDate = getFormattedDate();
-  const formattedTime = getFormattedTime();
+
 
   return (
     <div className="date-and-time-container">
       <div className="date-content">
         {formattedDate}
-      </div>
-      <div className="time-content">
-        {formattedTime}
       </div>
     </div>
   );

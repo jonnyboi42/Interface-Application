@@ -8,6 +8,7 @@ import './components/News/news.css'
 import './components/DateAndTime/dateandtime.css'
 import './components/Reminders/reminders.css'
 import './components/Spotify/spotify.css'
+import './components/Footer/footer.css'
 import App from './App.jsx'
 
 

@@ -4,6 +4,7 @@ import Weather from '../Weather/Weather';
 import News from '../News/News';
 import DateAndTime from '../DateAndTime/DateAndTime';
 import Reminders from '../Reminders/Reminders';
+import Footer from '../Footer/Footer';
 import Spotify from '../Spotify/Spotify';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../AuthorizationContext/AuthorizationContext';
@@ -51,8 +52,14 @@ const Home = () => {
 
           </div>
 
+ 
+
         </div>
         
+      </div>
+
+      <div className="home-container-footer-content">
+            <Footer/>
       </div>
       
     </div>

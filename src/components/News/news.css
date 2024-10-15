@@ -1,15 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
 .news-container-content {
     border: 2px solid rgba(255, 255, 255, 0.2); /* Semi-transparent border */
     border-radius: 5px;
-    padding: 1.5em; /* Optional padding for inner content */
+    
     
     background: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
     backdrop-filter: blur(10px); /* Background blur for glass effect */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
     color: white;
     display: flex;
+    flex-direction: column;
     width: 70%;
     max-width: 70%;
+    max-height: 65%;
+    height: auto;
     font-family:'Roboto', sans-serif;
 }
 
@@ -28,14 +33,15 @@
 .article {
     display: flex;
     flex-direction: column;
-    align-items: center;  /* Ensure image and text in the article are centered */
+    /* align-items: center;   */
 }
 
 
 .article-image {
-    max-width: 70%;
-    width: 70%;
-    margin: 0 auto;  /* This ensures the image is centered */
+   width: 100%;
+   border-radius: 5px;
+    
+    /* margin: 0 auto;   */
 }
 
 .article-text{
@@ -43,21 +49,20 @@
     
 }
 
-.read-more{
-    font-family:'Roboto', sans-serif;
-    font-weight: bold;
+
+
+
+/* Read More Button */
+.news-container-content > button:nth-of-type(1){
+    width: 20%;
     background: none;
-    /* background-color: rgb(228, 224, 224); */
-    border: 1px solid rgb(239, 239, 239);
+    border: 1px solid rgb(193, 190, 190);
     border-radius: 10px;
-    font-size: .7rem;
-    padding-left: 1em;
-    padding-right: 1em;
-    padding-top: .5em;
-    padding-bottom: .5em;
-    margin-top: 1em;
-    align-self: flex-start;
-    margin-left:2em;
-
+    padding: .2em;
+    font-size: .9rem;
+    margin-top: .5em;
+    /* font-family: "Roboto", sans-serif; */
+    font-weight: 400;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
 }
-

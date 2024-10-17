@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
-.news-container-content {
+.news-container {
     border: 2px solid rgba(255, 255, 255, 0.2); /* Semi-transparent border */
     border-radius: 5px;
     
@@ -11,14 +11,15 @@
     color: white;
     display: flex;
     flex-direction: column;
-    width: 70%;
-    max-width: 70%;
-    max-height: 65%;
+    width: 60%;
+    max-width: 60%;
+    max-height: 70%;
     height: auto;
+    
     font-family:'Roboto', sans-serif;
 }
 
-.news-content {
+.main-news-content {
     display: flex;
     flex-direction: column;
     
@@ -33,6 +34,7 @@
 
 .article-image {
    width: 100%;
+   max-height: auto;
    border-radius: 5px;
     
     /* margin: 0 auto;   */

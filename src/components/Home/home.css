@@ -1,5 +1,12 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
 .home-container {
     min-height: 100vh;
+    
     font-family: "Saira", sans-serif;
     overflow: auto;
     background-image: url('https://images.pexels.com/photos/933054/pexels-photo-933054.jpeg?cs=srgb&dl=pexels-joyston-judah-331625-933054.jpg&fm=jpg');
@@ -8,8 +15,10 @@
 
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    /* padding-top: 2em;
+    padding-bottom: 2em; */
+    /* justify-content: center; */
+    /* align-items: center; */
     
 
 }
@@ -17,34 +26,28 @@
 .home-container-content{
     display: flex;
     flex-direction: column;
-    margin-left: 13.5em;
-    margin-right: 13.5em;
-    
-    
-    /* background-color: blue; */
+    flex-grow: 1;
+    /* align-items: center; */
+    margin-left: 10em;
+    margin-right: 10em;
+
+
 }
 
-.home-container-modules-content{
+
+.row-1 {
     display: flex;
-    justify-content: space-between;
-    
-    
+    width: 100%;
+    justify-content: center;
 }
 
-.home-container-modules-content-col-1{
-    max-width: 50%;
-    display: flex;
-    flex-direction: column;
-    gap: 1em;
-    
-    
-}
 
-.home-container-modules-content-col-2{
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
+.row-2 {
+    
+  }
+
+.row-3{
+    max-width: 100%;
 }
 
 .home-container-footer-content{

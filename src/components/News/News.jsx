@@ -1,11 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useQuery } from 'react-query';
 import newsConfig from '../../config/newsConfig';
 
-// Default image URL to use when no image is available
-const defaultImageUrl = 'https://static01.nyt.com/images/2021/02/06/business/05NYDN-print/merlin_156955713_3b027363-8c47-47e4-9784-de7645763b48-superJumbo.jpg'; // Replace this with your actual default image URL
-
+// Function to fetch the news
 const fetchNews = async () => {
   try {
     const response = await axios.get(
@@ -18,56 +16,47 @@ const fetchNews = async () => {
 };
 
 const News = () => {
+  const [articles, setArticles] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
   const { data, error, isLoading } = useQuery({
     queryKey: ["newskey"],
     queryFn: fetchNews,
     refetchOnWindowFocus: false, // Disable refetching on window focus
   });
 
-  const getMainArticle = () => {
-    // Filter the articles to exclude those with a title of "[Removed]"
-    const validArticles = data?.articles.filter(article => 
-      article.title !== '[Removed]'
-    );
+  useEffect(() => {
+    // Check localStorage for saved articles and compare the timestamp
+    const savedArticles = JSON.parse(localStorage.getItem('newsArticles'));
+    const savedDate = localStorage.getItem('newsFetchDate');
+    const today = new Date().toISOString().split('T')[0]; // Get today's date
 
-    // Get the first valid article for the main content
-    const mainArticle = validArticles.slice(0, 1);
+    if (savedArticles && savedDate === today) {
+      // If articles are already saved for today, use them
+      setArticles(savedArticles);
+    } else if (data?.articles) {
+      // Filter and store only the first 10 valid articles
+      const validArticles = data.articles
+        .filter(article => article.title !== '[Removed]')
+        .slice(0, 10);
 
-    return mainArticle.length > 0 ? (
-      mainArticle.map((article, index) => (
-        <div key={index} className='article'>
-          {/* If urlToImage is null, use the defaultImageUrl */}
-          <img 
-            className='article-image' 
-            src={article.urlToImage || defaultImageUrl} 
-            alt={article.title} 
-          />
-          <p className='article-text'>{article.title}</p>
-        </div>
-      ))
-    ) : (
-      <p>No valid articles available.</p>
-    );
+      setArticles(validArticles);
+      localStorage.setItem('newsArticles', JSON.stringify(validArticles));
+      localStorage.setItem('newsFetchDate', today);
+    }
+  }, [data]);
+
+  // Function to get 5 articles at a time
+  const getArticlesToDisplay = () => {
+    return articles.slice(currentIndex, currentIndex + 5);
   };
 
-  const getOtherArticles = () => {
-    // Filter the articles to exclude those with a title of "[Removed]"
-    const validArticles = data?.articles.filter(article => 
-      article.title !== '[Removed]'
-    );
-
-    // Get 5 other articles for the titles list (skip the first one already displayed)
-    const otherArticles = validArticles.slice(1, 6);
-
-    return otherArticles.length > 0 ? (
-      otherArticles.map((article, index) => (
-        <p key={index} className='other-article-title'>
-          {article.title}
-        </p>
-      ))
-    ) : (
-      <p>No other articles available.</p>
-    );
+  // Function to display the next 5 articles
+  const handleNext = () => {
+    setCurrentIndex((prevIndex) => {
+      // If the next set of 5 exceeds the length, loop back
+      return (prevIndex + 5) % articles.length;
+    });
   };
 
   if (isLoading) return <div>Loading...</div>;
@@ -75,12 +64,25 @@ const News = () => {
 
   return (
     <div className="news-container">
-      <div className="main-news-content">
-        {getMainArticle()}
+      <div className="news-title">
+        <p>News</p>
       </div>
-      <div className="other-news-content">
-        {getOtherArticles()}
+      <div className="articles">
+        {getArticlesToDisplay().map((article, index) => (
+          <div key={index} className='article'>
+            <p className='article-text'>
+              <a href={article.url} target="_blank" rel="noopener noreferrer">
+                {article.title}
+              </a>
+            </p>
+          </div>
+        ))}
+
+        {articles.length > 5 && (
+          <button onClick={handleNext}>Next 5 Articles</button>
+        )}
       </div>
+      
     </div>
   );
 };

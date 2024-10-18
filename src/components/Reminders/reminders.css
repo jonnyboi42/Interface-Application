@@ -1,7 +1,7 @@
 .all-reminders-container{
     display: flex;
-    max-height: 30%;
     gap: 1em;
+    height: 100%;
 }
 
 .reminders-container{
@@ -14,12 +14,13 @@
     /* Optional text styling for contrast */
     color: white;
     font-family:'Roboto', sans-serif; 
-    width: 40%;
+    width: 20%;
 
     display: flex;
     justify-content: center;
     align-items: center;
     padding: .5em;
+    
 
     
 }
@@ -30,8 +31,6 @@
 }
 .reminder-title{
     font-size: 1.5rem;
-    /* display: flex; */
-    /* gap: .4em; */
     margin-bottom: .4em;
     text-align: center;
 }
@@ -81,8 +80,7 @@
     overflow-y: scroll;   /* Enable vertical scrolling */
     overflow-x: hidden;   /* Disable horizontal scrolling */
 
-    /* Optional fixed height for the container */
-    max-height: 400px; /* Adjust based on your layout */
+    
 }
 
 /* Custom scrollbar styling for WebKit browsers */

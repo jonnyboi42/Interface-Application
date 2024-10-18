@@ -1,7 +1,7 @@
 .all-reminders-container{
     display: flex;
     gap: 1em;
-    height: 100%;
+
 }
 
 .reminders-container{
@@ -14,7 +14,7 @@
     /* Optional text styling for contrast */
     color: white;
     font-family:'Roboto', sans-serif; 
-    width: 20%;
+    width: 17%;
 
     display: flex;
     justify-content: center;
@@ -74,8 +74,8 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
     color: white;
     font-family: 'Roboto', sans-serif;
-    width: 60%;
-    
+    width: 30%;
+    height: 22vh;
     /* Scroll settings */
     overflow-y: scroll;   /* Enable vertical scrolling */
     overflow-x: hidden;   /* Disable horizontal scrolling */
@@ -177,6 +177,7 @@
     padding: .4em;
     font-size: .7rem;
     color: rgb(167, 167, 167);
+    width: 70%;
   
 
 }

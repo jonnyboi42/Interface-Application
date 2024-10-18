@@ -1,46 +1,69 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&display=swap');
 
 .news-container {
     border: 2px solid rgba(255, 255, 255, 0.2); /* Semi-transparent border */
     border-radius: 5px;
-    
-    
     background: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
     backdrop-filter: blur(10px); /* Background blur for glass effect */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
     color: white;
     display: flex;
     flex-direction: column;
-    
     width: 30%;
     max-width: 30%;
-    /* max-height: 20%; */
-    /* height: 20%; */
-    /* padding: 1em; */
-    justify-content: center;
+    height: 25vh;
+    font-family: 'Roboto', sans-serif;
     
-    font-family:'Roboto', sans-serif;
+    /* Scrollbar when content overflows */
+    overflow-y: scroll;   /* Enable vertical scrolling */
+    overflow-x: hidden;   /* Disable horizontal scrolling */
+    padding: 1em;
 }
 
-.news-title{
-    font-size: 1.8rem;
-    margin-top: .2em;
-    
+/* Custom scrollbar styling for WebKit browsers */
+.news-container::-webkit-scrollbar {
+    width: 5px; /* Make scrollbar skinny */
 }
+
+.news-container::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1); /* Track background */
+}
+
+.news-container::-webkit-scrollbar-thumb {
+    background-color: rgb(208, 205, 205); /* Scrollbar color */
+    border-radius: 10px; /* Rounded scrollbar for smoother look */
+}
+
+.news-title {
+    font-size: 1.5rem;
+    margin-top: .2em;
+    color: white;
+}
+
+.articles {
+    display: flex;
+    flex-direction: column;
+    gap: .8em;
+    font-family: "Afacad Flux", sans-serif;
+    color: rgb(231, 226, 226);
+    opacity: 1; /* Default opacity */
+    transition: opacity 0.5s ease; /* Transition for opacity */
+}
+
 .article {
     display: flex;
     flex-direction: column;
-    /* padding: .4em */
 }
 
-
-
-.article-text >a{
+.article-text > a {
     margin-top: .8em;
     font-size: 1rem;
     text-decoration: none;
     color: rgb(218, 217, 217);
-    
 }
 
-
+/* New class for hiding articles with a fade effect */
+.articles-hidden {
+    opacity: 0; /* Hide articles */
+}

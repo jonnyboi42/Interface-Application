@@ -18,6 +18,7 @@ const fetchNews = async () => {
 const News = () => {
   const [articles, setArticles] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isFading, setIsFading] = useState(false); // New state for fading
 
   const { data, error, isLoading } = useQuery({
     queryKey: ["newskey"],
@@ -26,16 +27,13 @@ const News = () => {
   });
 
   useEffect(() => {
-    // Check localStorage for saved articles and compare the timestamp
     const savedArticles = JSON.parse(localStorage.getItem('newsArticles'));
     const savedDate = localStorage.getItem('newsFetchDate');
     const today = new Date().toISOString().split('T')[0]; // Get today's date
 
     if (savedArticles && savedDate === today) {
-      // If articles are already saved for today, use them
       setArticles(savedArticles);
     } else if (data?.articles) {
-      // Filter and store only the first 10 valid articles
       const validArticles = data.articles
         .filter(article => article.title !== '[Removed]')
         .slice(0, 10);
@@ -46,18 +44,26 @@ const News = () => {
     }
   }, [data]);
 
-  // Function to get 5 articles at a time
+  // Function to get 2 articles at a time
   const getArticlesToDisplay = () => {
-    return articles.slice(currentIndex, currentIndex + 5);
+    return articles.slice(currentIndex, currentIndex + 2);
   };
 
-  // Function to display the next 5 articles
-  const handleNext = () => {
-    setCurrentIndex((prevIndex) => {
-      // If the next set of 5 exceeds the length, loop back
-      return (prevIndex + 5) % articles.length;
-    });
-  };
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsFading(true); // Start fading out
+
+      setTimeout(() => {
+        setCurrentIndex((prevIndex) => {
+          const nextIndex = (prevIndex + 2) % articles.length;
+          return nextIndex;
+        });
+        setIsFading(false); // Fade back in
+      }, 500); // Match this duration with the CSS transition duration
+    }, 5000); // Change every 5 seconds
+
+    return () => clearInterval(interval); // Cleanup interval on unmount
+  }, [articles.length]);
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
@@ -67,22 +73,17 @@ const News = () => {
       <div className="news-title">
         <p>News</p>
       </div>
-      <div className="articles">
+      <div className={`articles ${isFading ? 'articles-hidden' : ''}`}>
         {getArticlesToDisplay().map((article, index) => (
-          <div key={index} className='article'>
-            <p className='article-text'>
+          <div key={index} className="article">
+            <p className="article-text">
               <a href={article.url} target="_blank" rel="noopener noreferrer">
                 {article.title}
               </a>
             </p>
           </div>
         ))}
-
-        {articles.length > 5 && (
-          <button onClick={handleNext}>Next 5 Articles</button>
-        )}
       </div>
-      
     </div>
   );
 };

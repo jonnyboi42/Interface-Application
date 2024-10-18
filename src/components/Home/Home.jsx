@@ -34,29 +34,32 @@ const Home = () => {
     <div class="home-container">
       {/* <Header/> */}
       <div className="home-container-content">
-      
-        <div className="row-1">
-          <DateAndTime/> 
-        </div>
-        <div className="row-2">
-          <Reminders/> 
-          
-          
-        </div>
+
+          <div className="row-1">
+            <DateAndTime/> 
+          </div>
+    
+          <div className="row-2">
             
-        <div className="row-3">
-          <Weather/>
-        </div>
+            <Reminders/> 
+          
+          </div>  
 
-        <div className="row-4">
-          <News/>
-        </div>
+          <div className="row-3">
+            <Weather/>
+          </div>
 
-      </div>
+          <div className="row-4">
+            <News/>
+          </div>
+
+      
         
-      {/* <div className="home-container-footer-content">
+      </div>
+
+      <div className="home-container-footer-content">
             <Footer/>
-      </div> */}
+      </div>
       
     </div>
   );

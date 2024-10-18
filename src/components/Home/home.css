@@ -15,11 +15,8 @@ html, body {
 
     display: flex;
     flex-direction: column;
-    /* padding-top: 2em;
-    padding-bottom: 2em; */
-    /* justify-content: center; */
-    /* align-items: center; */
-    
+    padding-top:3em;
+    padding-bottom: 3em;
 
 }
 
@@ -27,9 +24,10 @@ html, body {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    /* align-items: center; */
-    margin-left: 10em;
-    margin-right: 10em;
+    gap: 1em;
+    margin-left: 5%;
+    margin-right: 5%;
+   
 
 
 }
@@ -37,7 +35,7 @@ html, body {
 
 .row-1 {
     display: flex;
-    width: 100%;
+    /* width: 100%; */
     justify-content: center;
 }
 

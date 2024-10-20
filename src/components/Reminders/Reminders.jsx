@@ -7,17 +7,18 @@ const Reminders = () => {
   const [isAddingReminder, setIsAddingReminder] = useState(false);
   const [reminderTitle, setReminderTitle] = useState('');
   const [dueDate, setDueDate] = useState('');
-  const [remindersList, setRemindersList] = useState([]); // State to store reminders
-  const [todayReminder, setTodayReminder] = useState(null); // State to store today's reminder
+  const [amount, setAmount] = useState(''); 
+  const [remindersList, setRemindersList] = useState([]); 
+  const [todayReminder, setTodayReminder] = useState(null); 
+  const [totalAmount, setTotalAmount] = useState(0); // State for total amount
+
   const colRef = collection(db, 'reminders');
 
-  // Get current date in 'YYYY-MM-DD' format
   const getCurrentDate = () => {
     const today = new Date();
-    return today.toISOString().split('T')[0]; // Format to match 'YYYY-MM-DD'
+    return today.toISOString().split('T')[0]; 
   };
 
-  // Fetch reminders when the component mounts
   useEffect(() => {
     const fetchReminders = async () => {
       try {
@@ -28,10 +29,13 @@ const Reminders = () => {
         }));
         setRemindersList(remindersData);
 
-        // Check for reminders due today
         const currentDate = getCurrentDate();
         const todayReminders = remindersData.find(reminder => reminder.dueDate === currentDate);
-        setTodayReminder(todayReminders || null); // Set today's reminder or null if none found
+        setTodayReminder(todayReminders || null);
+
+        // Calculate total amount
+        const total = remindersData.reduce((acc, reminder) => acc + (reminder.amount || 0), 0);
+        setTotalAmount(total);
       } catch (error) {
         console.log('Error fetching reminders', error);
       }
@@ -40,25 +44,24 @@ const Reminders = () => {
     fetchReminders();
   }, []);
 
-  // Function to toggle between showing reminders and the add-reminder form
   const handleAddReminderClick = () => {
     setIsAddingReminder(true);
   };
 
-  // Function to save Reminder to Firestore
   const handleSaveReminder = async () => {
-    if (reminderTitle && dueDate) {
+    if (reminderTitle && dueDate && amount) {
       try {
         await addDoc(colRef, {
           title: reminderTitle,
           dueDate: dueDate,
+          amount: parseFloat(amount), 
         });
         console.log('Reminder added!');
-        setIsAddingReminder(false); // Return to reminders view after adding
+        setIsAddingReminder(false);
         setReminderTitle('');
         setDueDate('');
+        setAmount(''); 
 
-        // Refetch reminders after adding a new one
         const snapshot = await getDocs(colRef);
         const updatedReminders = snapshot.docs.map((doc) => ({
           id: doc.id,
@@ -66,26 +69,27 @@ const Reminders = () => {
         }));
         setRemindersList(updatedReminders);
 
-        // Update today's reminder check
         const currentDate = getCurrentDate();
         const todayReminders = updatedReminders.find(reminder => reminder.dueDate === currentDate);
         setTodayReminder(todayReminders || null);
+
+        // Recalculate total amount
+        const total = updatedReminders.reduce((acc, reminder) => acc + (reminder.amount || 0), 0);
+        setTotalAmount(total);
       } catch (error) {
         console.log('Error adding Reminder', error);
       }
     } else {
-      console.log('Please fill in both fields');
+      console.log('Please fill in all fields');
     }
   };
 
-  // Function to delete a reminder from Firestore
   const handleDeleteReminder = async (id) => {
     try {
       const reminderDocRef = doc(db, 'reminders', id);
       await deleteDoc(reminderDocRef);
       console.log('Reminder deleted!');
 
-      // Update the reminders list after deletion
       const snapshot = await getDocs(colRef);
       const updatedReminders = snapshot.docs.map((doc) => ({
         id: doc.id,
@@ -93,10 +97,13 @@ const Reminders = () => {
       }));
       setRemindersList(updatedReminders);
 
-      // Update today's reminder check
       const currentDate = getCurrentDate();
       const todayReminders = updatedReminders.find(reminder => reminder.dueDate === currentDate);
       setTodayReminder(todayReminders || null);
+
+      // Recalculate total amount
+      const total = updatedReminders.reduce((acc, reminder) => acc + (reminder.amount || 0), 0);
+      setTotalAmount(total);
     } catch (error) {
       console.log('Error deleting reminder', error);
     }
@@ -107,7 +114,7 @@ const Reminders = () => {
       <div className="reminders-container">
         <div className="reminders-content">
           <div className="reminder-title">
-          <p>{isAddingReminder ? 'Add Reminder' : 'Due Today'}</p>
+            <p>{isAddingReminder ? 'Add Reminder' : 'Due Today'}</p>
           </div>
 
           <div className="reminders-items">
@@ -117,21 +124,20 @@ const Reminders = () => {
                   <div className="reminder-item-reminder">
                     <img src={CalendarIcon} alt="" />
                     {todayReminder ? (
-                      <p>{todayReminder.title}</p> // Render the reminder if there's one due today
+                      <p>{todayReminder.title} - ${todayReminder.amount}</p> 
                     ) : (
-                      <p>Nothing Due</p> // Default message if no reminders due today
+                      <p>Nothing Due</p>
                     )}
                   </div>
                   <div className="reminder-item-due-date">
                     {todayReminder ? (
-                      <p>{todayReminder.dueDate}</p> // Render the due date if there's one due today
+                      <p>{todayReminder.dueDate}</p>
                     ) : (
-                      <p></p> // Empty if no reminders due today
+                      <p></p>
                     )}
                   </div>
                 </div>
 
-                {/* "Add +" button to switch to the add reminder form */}
                 <button className="add-reminder" onClick={handleAddReminderClick}>
                   Add +
                 </button>
@@ -151,6 +157,13 @@ const Reminders = () => {
                   value={dueDate}
                   onChange={(e) => setDueDate(e.target.value)}
                 />
+                <input
+                  className="amount-input"
+                  type="number"
+                  placeholder="Amount ($)"
+                  value={amount}
+                  onChange={(e) => setAmount(e.target.value)}
+                />
 
                 <div className="add-reminder-buttons">
                   <button className="save-reminder-button" onClick={handleSaveReminder}>
@@ -160,7 +173,6 @@ const Reminders = () => {
                     back
                   </button>
                 </div>
-
               </div>
             )}
           </div>
@@ -170,7 +182,6 @@ const Reminders = () => {
       <div className="future-reminders-container">
         <div className="future-reminders-content">
           <p>Upcoming</p>
-          {/* Dynamically render reminders from Firestore */}
           {remindersList.length > 0 ? (
             remindersList.map((reminder) => (
               <div className="future-reminder-item" key={reminder.id}>
@@ -178,7 +189,7 @@ const Reminders = () => {
                   <div className="future-reminder-item-reminder">
                     <div className="future-reminder-icon-and-title">
                       <img src={CalendarIcon} alt="" />
-                      <p>{reminder.title}</p>
+                      <p>{reminder.title} - ${reminder.amount}</p>
                     </div>
                     <p className="future-reminder-due-date">{reminder.dueDate}</p>
                   </div>
@@ -195,6 +206,12 @@ const Reminders = () => {
             <p>No upcoming reminders.</p>
           )}
         </div>
+      </div>
+
+      {/* Total Amount Container */}
+      <div className="total-amount-container">
+        <p>Total Monthly Amount</p>
+        <p> ${totalAmount.toFixed(2)}</p>
       </div>
     </div>
   );

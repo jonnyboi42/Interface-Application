@@ -7,16 +7,22 @@ const Reminders = () => {
   const [isAddingReminder, setIsAddingReminder] = useState(false);
   const [reminderTitle, setReminderTitle] = useState('');
   const [dueDate, setDueDate] = useState('');
-  const [amount, setAmount] = useState(''); 
-  const [remindersList, setRemindersList] = useState([]); 
-  const [todayReminder, setTodayReminder] = useState(null); 
-  const [totalAmount, setTotalAmount] = useState(0); // State for total amount
+  const [amount, setAmount] = useState('');
+  const [remindersList, setRemindersList] = useState([]);
+  const [todayReminder, setTodayReminder] = useState(null);
+  const [totalAmount, setTotalAmount] = useState(0);
+  const [categoryTotals, setCategoryTotals] = useState({
+    rent: 0,
+    subscriptions: 0,
+    creditCards: 0,
+    studentLoan: 0,
+  });
 
   const colRef = collection(db, 'reminders');
 
   const getCurrentDate = () => {
     const today = new Date();
-    return today.toISOString().split('T')[0]; 
+    return today.toISOString().split('T')[0];
   };
 
   useEffect(() => {
@@ -33,9 +39,8 @@ const Reminders = () => {
         const todayReminders = remindersData.find(reminder => reminder.dueDate === currentDate);
         setTodayReminder(todayReminders || null);
 
-        // Calculate total amount
-        const total = remindersData.reduce((acc, reminder) => acc + (reminder.amount || 0), 0);
-        setTotalAmount(total);
+        // Calculate total amount and category-wise totals
+        calculateTotals(remindersData);
       } catch (error) {
         console.log('Error fetching reminders', error);
       }
@@ -43,6 +48,35 @@ const Reminders = () => {
 
     fetchReminders();
   }, []);
+
+  const calculateTotals = (reminders) => {
+    let total = 0;
+    let categoryWiseTotals = {
+      rent: 0,
+      subscriptions: 0,
+      creditCards: 0,
+      studentLoan: 0,
+    };
+
+    reminders.forEach(reminder => {
+      const reminderAmount = reminder.amount || 0;
+      total += reminderAmount;
+
+      // Assign to categories based on title
+      if (reminder.title.toLowerCase().includes('rent') || reminder.title.toLowerCase().includes('spectrum')) {
+        categoryWiseTotals.rent += reminderAmount;
+      } else if (reminder.title.toLowerCase().includes('spotify') || reminder.title.toLowerCase().includes('amazon')) {
+        categoryWiseTotals.subscriptions += reminderAmount;
+      } else if (reminder.title.toLowerCase().includes('citi') || reminder.title.toLowerCase().includes('wells fargo')) {
+        categoryWiseTotals.creditCards += reminderAmount;
+      } else if (reminder.title.toLowerCase().includes('student loan')) {
+        categoryWiseTotals.studentLoan += reminderAmount;
+      }
+    });
+
+    setTotalAmount(total);
+    setCategoryTotals(categoryWiseTotals);
+  };
 
   const handleAddReminderClick = () => {
     setIsAddingReminder(true);
@@ -54,13 +88,13 @@ const Reminders = () => {
         await addDoc(colRef, {
           title: reminderTitle,
           dueDate: dueDate,
-          amount: parseFloat(amount), 
+          amount: parseFloat(amount),
         });
         console.log('Reminder added!');
         setIsAddingReminder(false);
         setReminderTitle('');
         setDueDate('');
-        setAmount(''); 
+        setAmount('');
 
         const snapshot = await getDocs(colRef);
         const updatedReminders = snapshot.docs.map((doc) => ({
@@ -73,9 +107,8 @@ const Reminders = () => {
         const todayReminders = updatedReminders.find(reminder => reminder.dueDate === currentDate);
         setTodayReminder(todayReminders || null);
 
-        // Recalculate total amount
-        const total = updatedReminders.reduce((acc, reminder) => acc + (reminder.amount || 0), 0);
-        setTotalAmount(total);
+        // Recalculate totals after adding
+        calculateTotals(updatedReminders);
       } catch (error) {
         console.log('Error adding Reminder', error);
       }
@@ -101,9 +134,8 @@ const Reminders = () => {
       const todayReminders = updatedReminders.find(reminder => reminder.dueDate === currentDate);
       setTodayReminder(todayReminders || null);
 
-      // Recalculate total amount
-      const total = updatedReminders.reduce((acc, reminder) => acc + (reminder.amount || 0), 0);
-      setTotalAmount(total);
+      // Recalculate totals after deletion
+      calculateTotals(updatedReminders);
     } catch (error) {
       console.log('Error deleting reminder', error);
     }
@@ -116,7 +148,6 @@ const Reminders = () => {
           <div className="reminder-title">
             <p>{isAddingReminder ? 'Add Reminder' : 'Due Today'}</p>
           </div>
-
           <div className="reminders-items">
             {!isAddingReminder ? (
               <div>
@@ -124,7 +155,7 @@ const Reminders = () => {
                   <div className="reminder-item-reminder">
                     <img src={CalendarIcon} alt="" />
                     {todayReminder ? (
-                      <p>{todayReminder.title} - ${todayReminder.amount}</p> 
+                      <p>{todayReminder.title} - ${todayReminder.amount}</p>
                     ) : (
                       <p>Nothing Due</p>
                     )}
@@ -143,7 +174,7 @@ const Reminders = () => {
                 </button>
               </div>
             ) : (
-              <div className='reminders-items'>
+              <div className="reminders-items">
                 <input
                   className="reminder-title-input"
                   type="text"
@@ -211,7 +242,29 @@ const Reminders = () => {
       {/* Total Amount Container */}
       <div className="total-amount-container">
         <p>Total Monthly Amount</p>
-        <p> ${totalAmount.toFixed(2)}</p>
+        <p>${totalAmount.toFixed(2)}</p>
+      </div>
+
+      {/* Category Totals Section */}
+      <div className="category-totals-container">
+        
+        <p>Totals</p>
+        <div className="category-totals">
+          <p>
+          Rent: <span className="cat-totals-amt">${categoryTotals.rent.toFixed(2)}</span>
+          </p>
+          <p>
+            Subscriptions: <span className="cat-totals-amt">${categoryTotals.subscriptions.toFixed(2)}</span>
+          </p>
+          <p>
+            Credit Cards: <span className="cat-totals-amt">${categoryTotals.creditCards.toFixed(2)}</span>
+          </p>
+          <p>
+            Student Loan: <span className="cat-totals-amt">${categoryTotals.studentLoan.toFixed(2)}</span>
+          </p>
+        </div>
+
+
       </div>
     </div>
   );

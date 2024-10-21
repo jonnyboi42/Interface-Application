@@ -240,3 +240,37 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+
+
+
+/* Categories Container */
+.category-totals-container{
+    
+    border: 2px solid rgba(255, 255, 255, 0.2); /* Semi-transparent border */
+    border-radius: 5px;    
+    background: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
+    backdrop-filter: blur(10px); /* Background blur for glass effect */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+    
+    /* Optional text styling for contrast */
+    color: white;
+    font-family:'Roboto', sans-serif; 
+    width: 20%;
+
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    padding: 1em;
+    font-size: 1.3rem;
+    text-align: center;
+}
+
+.category-totals > p{
+    font-size: 1.1rem;
+}
+
+.cat-totals-amt{
+    color: rgb(187, 185, 185);
+}
